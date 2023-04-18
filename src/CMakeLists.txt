@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.25)
 
 add_library(gl-forge STATIC
+    application.hpp application.cpp
     window.hpp window.cpp
+    camera.hpp camera.cpp
 )
 
 target_link_libraries(gl-forge PRIVATE glad::glad glfw glm::glm imgui::imgui)
