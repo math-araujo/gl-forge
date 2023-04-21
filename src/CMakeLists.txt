@@ -5,6 +5,7 @@ add_library(gl-forge STATIC
     window.hpp window.cpp
     camera.hpp camera.cpp
     shader.hpp shader.cpp
+    shader_program.hpp shader_program.cpp
 )
 
 target_link_libraries(gl-forge PRIVATE glad::glad glfw glm::glm imgui::imgui)

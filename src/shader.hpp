@@ -2,7 +2,7 @@
 #define GL_FORGE_SHADER_HPP
 
 #include <glad/glad.h>
-#include <string>
+#include <string_view>
 
 namespace glforge
 {
@@ -20,7 +20,7 @@ public:
         Compute = GL_COMPUTE_SHADER
     };
 
-    Shader(const std::string& shader_source_code, Type type);
+    Shader(std::string_view shader_source_code, Type type);
     Shader(const Shader&) = delete;
     Shader(Shader&& rhs) noexcept;
     Shader& operator=(const Shader&) = delete;

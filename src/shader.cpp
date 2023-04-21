@@ -1,27 +1,33 @@
 #include "shader.hpp"
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <format>
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>
 
-namespace // anonymous
-{
-
-void check_shader_compilation(GLuint shader_id, std::string_view shader_type);
-
-}
-
 namespace glforge
 {
 
-Shader::Shader(const std::string& shader_source_code, Type type) : _id{glCreateShader(static_cast<GLenum>(type))}
+Shader::Shader(std::string_view shader_source_code, Type type) : _id{glCreateShader(static_cast<GLenum>(type))}
 {
-    const char* source_code_ptr{shader_source_code.c_str()};
+    assert(_id != 0);
+    const GLchar* source_code_ptr{shader_source_code.data()};
     glShaderSource(_id, 1, &source_code_ptr, nullptr);
     glCompileShader(_id);
-    check_shader_compilation(_id, shader_typename(type));
+
+    int compilation_successful{0};
+    glGetShaderiv(_id, GL_COMPILE_STATUS, &compilation_successful);
+
+    if (!compilation_successful)
+    {
+        std::array<char, 1024> error_log{};
+        glGetShaderInfoLog(_id, static_cast<GLsizei>(error_log.size()), nullptr, error_log.data());
+        glDeleteShader(_id);
+        throw std::runtime_error{
+            std::format("{} Shader compilation error: {}\n", shader_typename(type), error_log.data())};
+    }
 }
 
 const std::string& shader_typename(Shader::Type type)
@@ -62,21 +68,3 @@ GLuint Shader::id() const noexcept
 }
 
 } // namespace glforge
-
-namespace // anonymous
-{
-
-void check_shader_compilation(GLuint shader_id, std::string_view shader_type)
-{
-    int compilation_successful{0};
-    glGetShaderiv(shader_id, GL_COMPILE_STATUS, &compilation_successful);
-
-    if (!compilation_successful)
-    {
-        std::array<char, 1024> error_log{};
-        glGetShaderInfoLog(shader_id, static_cast<GLsizei>(error_log.size()), nullptr, error_log.data());
-        throw std::runtime_error{std::format("{} Shader compilation error: {}\n", shader_type, error_log.data())};
-    }
-}
-
-} // namespace
