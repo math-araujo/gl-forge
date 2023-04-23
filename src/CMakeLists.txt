@@ -8,6 +8,7 @@ add_library(gl-forge STATIC
     shader_program.hpp shader_program.cpp
     vertex_array.hpp vertex_array.cpp
     vertex_buffer.hpp vertex_buffer.cpp
+    index_buffer.hpp index_buffer.cpp
 )
 
 target_link_libraries(gl-forge PRIVATE glad::glad glfw glm::glm imgui::imgui)
