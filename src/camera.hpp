@@ -41,6 +41,8 @@ private:
     glm::vec3 _gaze_dir{0.0f, 0.0f, -1.0f}; // Points to the negative z-axis direction
     float _speed{5.0f};
     float _mouse_sensitivity{0.1f};
+
+    void update_orientation();
 };
 
 } // namespace glforge
