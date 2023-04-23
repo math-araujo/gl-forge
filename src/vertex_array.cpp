@@ -70,4 +70,9 @@ void VertexArray::bind_vertex_buffer(GLuint vbo, GLuint vertex_buffer_stride, GL
     glVertexArrayVertexBuffer(_id, buffer_binding_point, vbo, 0, vertex_buffer_stride * sizeof(float));
 }
 
+void VertexArray::bind_index_buffer(GLuint ibo)
+{
+    glVertexArrayElementBuffer(_id, ibo);
+}
+
 } // namespace glforge

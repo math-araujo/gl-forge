@@ -24,10 +24,11 @@ public:
     Window& operator=(Window&& rhs);
     ~Window();
 
-    int width() const noexcept;
-    int height() const noexcept;
-    const GLFWwindow* get() const noexcept;
-    GLFWwindow* get() noexcept;
+    [[nodiscard]] int width() const noexcept;
+    [[nodiscard]] int height() const noexcept;
+    [[nodiscard]] float aspect_ratio() const noexcept;
+    [[nodiscard]] const GLFWwindow* get() const noexcept;
+    [[nodiscard]] GLFWwindow* get() noexcept;
 
     void resize(int width, int height);
 

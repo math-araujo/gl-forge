@@ -22,16 +22,16 @@ public:
     Camera() = default;
     Camera(const glm::vec3& position);
     /*
-    The camera orientation and position are updates on
+    The camera orientation and position are updated on
     the process_input functions.
     */
     void process_input(CameraMovement direction, float dt);
     void process_input(float x_offset, float y_offset);
 
-    const glm::vec3& gaze_direction() const noexcept;
-    // view() should be called after process_input updated the camera position and orientation
-    glm::mat4 view() const noexcept;
-    const glm::vec3& position() const noexcept;
+    [[nodiscard]] const glm::vec3& gaze_direction() const noexcept;
+    // view() should be called after process_input updates the camera position and orientation
+    [[nodiscard]] glm::mat4 view() const noexcept;
+    [[nodiscard]] const glm::vec3& position() const noexcept;
 
 private:
     float _pitch{0.0f};

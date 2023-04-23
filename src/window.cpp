@@ -91,6 +91,11 @@ int Window::height() const noexcept
     return _height;
 }
 
+float Window::aspect_ratio() const noexcept
+{
+    return static_cast<float>(_width) / _height;
+}
+
 const GLFWwindow* Window::get() const noexcept
 {
     return _window;

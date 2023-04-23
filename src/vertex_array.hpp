@@ -25,8 +25,10 @@ public:
     ~VertexArray();
 
     [[nodiscard]] GLuint id() const noexcept;
+
     void bind();
     void bind_vertex_buffer(GLuint vbo, GLuint vertex_buffer_stride, GLuint buffer_binding_point = 0);
+    void bind_index_buffer(GLuint ibo);
 
 private:
     GLuint _id{0};

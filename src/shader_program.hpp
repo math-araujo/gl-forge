@@ -25,7 +25,7 @@ public:
     ShaderProgram& operator=(ShaderProgram&& rhs) noexcept;
     ~ShaderProgram();
 
-    GLuint id() const noexcept;
+    [[nodiscard]] GLuint id() const noexcept;
     void use() noexcept;
 
 private:
