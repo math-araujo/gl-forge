@@ -4,6 +4,7 @@
 #include <cassert>
 #include <format>
 #include <fstream>
+#include <glm/gtc/type_ptr.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -58,6 +59,27 @@ ShaderProgram::ShaderProgram(std::span<BuildInfo> info) : _id{glCreateProgram()}
     {
         glDetachShader(_id, shader.id());
     }
+
+    get_active_uniforms();
+}
+
+void ShaderProgram::get_active_uniforms()
+{
+    int num_uniforms{0};
+    glGetProgramInterfaceiv(_id, GL_UNIFORM, GL_ACTIVE_RESOURCES, &num_uniforms);
+    std::array<GLenum, 2> properties{GL_NAME_LENGTH, GL_LOCATION};
+    std::array<GLint, 2> results; // Store uniform name length at results[0] and uniform location at results[1]
+    std::vector<char> uniform_name(256);
+    for (int uniform = 0; uniform < num_uniforms; ++uniform)
+    {
+        glGetProgramResourceiv(_id, GL_UNIFORM, uniform, static_cast<GLsizei>(properties.size()), properties.data(),
+                               static_cast<GLsizei>(results.size()), nullptr, results.data());
+        uniform_name.resize(results[0]);
+        glGetProgramResourceName(_id, GL_UNIFORM, uniform, static_cast<GLsizei>(uniform_name.size()), nullptr,
+                                 uniform_name.data());
+        const GLint uniform_location{results[1]};
+        _uniform_locations.emplace(std::string{uniform_name.data(), uniform_name.size() - 1}, uniform_location);
+    }
 }
 
 ShaderProgram::ShaderProgram(ShaderProgram&& rhs) noexcept : _id{rhs._id}
@@ -88,6 +110,18 @@ void ShaderProgram::use() noexcept
 {
     assert(_id != 0);
     glUseProgram(_id);
+}
+
+void ShaderProgram::set_vec3(const std::string& uniform_name, const glm::vec3& vector)
+{
+    assert(_uniform_locations.contains(uniform_name));
+    glProgramUniform3fv(_id, _uniform_locations[uniform_name], 1, glm::value_ptr(vector));
+}
+
+void ShaderProgram::set_mat4(const std::string& uniform_name, const glm::mat4& matrix)
+{
+    assert(_uniform_locations.contains(uniform_name));
+    glProgramUniformMatrix4fv(_id, _uniform_locations[uniform_name], 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 } // namespace glforge
