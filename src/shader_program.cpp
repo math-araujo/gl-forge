@@ -112,16 +112,16 @@ void ShaderProgram::use() noexcept
     glUseProgram(_id);
 }
 
-void ShaderProgram::set_vec3(const std::string& uniform_name, const glm::vec3& vector)
+void ShaderProgram::set_vec3(std::string_view uniform_name, const glm::vec3& vector)
 {
     assert(_uniform_locations.contains(uniform_name));
-    glProgramUniform3fv(_id, _uniform_locations[uniform_name], 1, glm::value_ptr(vector));
+    glProgramUniform3fv(_id, _uniform_locations.find(uniform_name)->second, 1, glm::value_ptr(vector));
 }
 
-void ShaderProgram::set_mat4(const std::string& uniform_name, const glm::mat4& matrix)
+void ShaderProgram::set_mat4(std::string_view uniform_name, const glm::mat4& matrix)
 {
     assert(_uniform_locations.contains(uniform_name));
-    glProgramUniformMatrix4fv(_id, _uniform_locations[uniform_name], 1, GL_FALSE, glm::value_ptr(matrix));
+    glProgramUniformMatrix4fv(_id, _uniform_locations.find(uniform_name)->second, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 } // namespace glforge

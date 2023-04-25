@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 #include <glm/matrix.hpp>
 #include <span>
+#include <string_view>
 #include <unordered_map>
 
 namespace glforge
@@ -30,12 +31,31 @@ public:
     [[nodiscard]] GLuint id() const noexcept;
     void use() noexcept;
 
-    void set_vec3(const std::string& uniform_name, const glm::vec3& vector);
-    void set_mat4(const std::string& uniform_name, const glm::mat4& matrix);
+    void set_vec3(std::string_view uniform_name, const glm::vec3& vector);
+    void set_mat4(std::string_view uniform_name, const glm::mat4& matrix);
 
 private:
+    struct heterogeneous_string_hash
+    {
+        using is_transparent = void;
+        [[nodiscard]] std::size_t operator()(const std::string& key) const
+        {
+            return std::hash<std::string>{}(key);
+        }
+
+        [[nodiscard]] std::size_t operator()(std::string_view key) const
+        {
+            return std::hash<std::string_view>{}(key);
+        }
+
+        [[nodiscard]] std::size_t operator()(const char* key) const
+        {
+            return std::hash<const char*>{}(key);
+        }
+    };
+
     GLuint _id{0};
-    std::unordered_map<std::string, GLint> _uniform_locations;
+    std::unordered_map<std::string, GLint, heterogeneous_string_hash, std::equal_to<>> _uniform_locations;
 
     void get_active_uniforms();
 };
