@@ -11,7 +11,7 @@ struct TextureParameters
 {
     GLenum target{GL_TEXTURE_2D};
     GLsizei mip_levels{1};
-    GLenum internal_format{GL_RGBA32F};
+    GLenum internal_format{GL_RGBA8};
 };
 
 class Texture
