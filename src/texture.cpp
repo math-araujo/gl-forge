@@ -5,8 +5,7 @@
 namespace glforge
 {
 
-Texture::Texture(std::uint32_t width, std::uint32_t height, const TextureParameters& parameters) :
-    _width{width}, _height{height}
+Texture::Texture(GLsizei width, GLsizei height, const TextureParameters& parameters) : _width{width}, _height{height}
 {
     assert(_width > 0);
     assert(_height > 0);

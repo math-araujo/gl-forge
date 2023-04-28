@@ -1,7 +1,6 @@
 #ifndef GL_FORGE_TEXTURE_HPP
 #define GL_FORGE_TEXTURE_HPP
 
-#include <cstdint>
 #include <glad/glad.h>
 #include <span>
 
@@ -28,7 +27,7 @@ struct ImageData
 class Texture
 {
 public:
-    Texture(std::uint32_t width, std::uint32_t height, const TextureParameters& parameters = {});
+    Texture(GLsizei width, GLsizei height, const TextureParameters& parameters = {});
     Texture(const Texture&) = delete;
     Texture(Texture&& rhs) noexcept;
     Texture& operator=(const Texture&) = delete;
@@ -41,8 +40,8 @@ public:
 
 private:
     GLuint _id{0};
-    std::uint32_t _width{0};
-    std::uint32_t _height{0};
+    GLsizei _width{0};
+    GLsizei _height{0};
 };
 
 } // namespace glforge
