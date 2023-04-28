@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <glad/glad.h>
+#include <span>
 
 namespace glforge
 {
@@ -12,6 +13,16 @@ struct TextureParameters
     GLenum target{GL_TEXTURE_2D};
     GLsizei mip_levels{1};
     GLenum internal_format{GL_RGBA8};
+};
+
+struct ImageData
+{
+    GLint level{0};
+    GLsizei width;
+    GLsizei height;
+    GLenum format{GL_RGBA};
+    GLenum type{GL_UNSIGNED_BYTE};
+    std::span<const void*> pixels;
 };
 
 class Texture
@@ -26,6 +37,7 @@ public:
 
     [[nodiscard]] GLuint id() const noexcept;
     void bind(GLuint sampler, GLuint unit = 0);
+    void update(const ImageData& image);
 
 private:
     GLuint _id{0};
