@@ -1,6 +1,6 @@
-#include "texture.hpp"
 #include <algorithm>
 #include <cassert>
+#include <glforge/texture.hpp>
 
 namespace glforge
 {

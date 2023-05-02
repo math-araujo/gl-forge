@@ -3,6 +3,7 @@
 
 #include "camera.hpp"
 #include <array>
+#include <cstdint>
 #include <glm/glm.hpp>
 #include <memory>
 #include <string_view>
@@ -47,8 +48,6 @@ protected:
     virtual void on_mouse_press(int button, int action);
     virtual void on_mouse_scroll(float x_offset, float y_offset);
 
-    Camera& camera();
-
     /*
     Reset viewport to the Application's width and height values
     */
@@ -59,7 +58,7 @@ protected:
     bool _wireframe_mode{false};
     bool _mouse_pressed{false};
     bool _free_mouse_move{false};
-    float _zoom{0.0f};
+    float _zoom{45.0f};
     Camera _camera{};
 
 private:

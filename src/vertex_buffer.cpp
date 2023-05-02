@@ -1,6 +1,6 @@
-#include "vertex_buffer.hpp"
 #include <algorithm>
 #include <cassert>
+#include <glforge/vertex_buffer.hpp>
 
 namespace glforge
 {

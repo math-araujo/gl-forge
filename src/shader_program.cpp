@@ -1,9 +1,9 @@
-#include "shader_program.hpp"
 #include <algorithm>
 #include <array>
 #include <cassert>
 #include <format>
 #include <fstream>
+#include <glforge/shader_program.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <sstream>
 #include <stdexcept>

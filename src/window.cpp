@@ -1,10 +1,10 @@
 // GLAD must be imported before GLFW
 #include <glad/glad.h>
 
-#include "window.hpp"
 #include <GLFW/glfw3.h>
 #include <cassert>
 #include <format>
+#include <glforge/window.hpp>
 #include <iostream>
 #include <stdexcept>
 

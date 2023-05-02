@@ -1,6 +1,6 @@
-#include "texture_sampler.hpp"
 #include <algorithm>
 #include <cassert>
+#include <glforge/texture_sampler.hpp>
 
 namespace glforge
 {

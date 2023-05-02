@@ -1,9 +1,9 @@
 // GLAD must be imported before GLFW
 #include <glad/glad.h>
 
-#include "application.hpp"
-#include "window.hpp"
 #include <GLFW/glfw3.h>
+#include <glforge/application.hpp>
+#include <glforge/window.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
@@ -12,6 +12,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 namespace glforge
 {
@@ -75,13 +76,13 @@ void Application::on_mouse_move(float x_pos, float y_pos)
     last_position = {static_cast<float>(x_pos), static_cast<float>(y_pos)};
     if (_mouse_pressed)
     {
-        camera().process_input(x_offset, y_offset);
+        _camera.process_input(x_offset, y_offset);
     }
 }
 
 void Application::on_mouse_press(int button, int action)
 {
-    if (button == GLFW_MOUSE_BUTTON_RIGHT)
+    if (button == GLFW_MOUSE_BUTTON_LEFT)
     {
         switch (action)
         {
@@ -100,11 +101,6 @@ void Application::on_mouse_press(int button, int action)
 void Application::on_mouse_scroll(float /*x_offset*/, float y_offset)
 {
     _zoom = std::max(std::min(_zoom - y_offset, 45.0f), 1.0f);
-}
-
-Camera& Application::camera()
-{
-    return _camera;
 }
 
 void Application::initialize_imgui()

@@ -1,8 +1,8 @@
-#include "shader.hpp"
 #include <algorithm>
 #include <array>
 #include <cassert>
 #include <format>
+#include <glforge/shader.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>

@@ -1,6 +1,6 @@
-#include "index_buffer.hpp"
 #include <algorithm>
 #include <cassert>
+#include <glforge/index_buffer.hpp>
 
 namespace glforge
 {
