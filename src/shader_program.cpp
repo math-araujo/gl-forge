@@ -29,13 +29,13 @@ std::string load_shader_source_code(const std::filesystem::path& source_path)
 namespace glforge
 {
 
-ShaderProgram::ShaderProgram(std::span<BuildInfo> info) : _id{glCreateProgram()}
+ShaderProgram::ShaderProgram(std::span<ShaderFile> shader_files) : _id{glCreateProgram()}
 {
     assert(_id != 0);
     std::vector<Shader> shaders;
-    shaders.reserve(info.size());
+    shaders.reserve(shader_files.size());
 
-    for (const auto& [path, type] : info)
+    for (const auto& [path, type] : shader_files)
     {
         const std::string shader_source_code{load_shader_source_code(path)};
         shaders.emplace_back(shader_source_code, type);
@@ -52,7 +52,7 @@ ShaderProgram::ShaderProgram(std::span<BuildInfo> info) : _id{glCreateProgram()}
         glGetProgramInfoLog(_id, static_cast<GLsizei>(error_log.size()), nullptr, error_log.data());
         glDeleteProgram(_id);
         throw std::runtime_error{std::format("Shader program linking error.\nShader Program: {}\nError: {}\n",
-                                             info.front().path.stem().string(), error_log.data())};
+                                             shader_files.front().path.stem().string(), error_log.data())};
     }
 
     for (const Shader& shader : shaders)

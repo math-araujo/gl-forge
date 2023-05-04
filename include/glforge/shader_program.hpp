@@ -15,13 +15,20 @@ namespace glforge
 class ShaderProgram
 {
 public:
-    struct BuildInfo
+    struct ShaderFile
     {
         std::filesystem::path path;
         Shader::Type type;
     };
 
-    ShaderProgram(std::span<BuildInfo> info);
+    struct ShaderSource
+    {
+        std::string_view source;
+        Shader::Type type;
+    };
+
+    ShaderProgram(std::span<ShaderFile> shader_files);
+    ShaderProgram(std::span<ShaderSource> shader_sources);
     ShaderProgram(const ShaderProgram& rhs) = delete;
     ShaderProgram(ShaderProgram&& rhs) noexcept;
     ShaderProgram& operator=(const ShaderProgram& rhs) = delete;
