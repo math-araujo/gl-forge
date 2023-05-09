@@ -14,6 +14,10 @@ cd gl-forge
 # On Windows + MSVC
 cmake --preset=msvc
 
+cmake --build build --config Release
+
 # Or on Linux
 cmake --preset=unix
+
+cmake --build build
 ```

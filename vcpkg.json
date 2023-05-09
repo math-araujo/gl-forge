@@ -1,5 +1,5 @@
 {
-    "name": "subdiv-collision",
+    "name": "gl-forge",
     "version": "1.0",
     "dependencies": [
         "glfw3",
