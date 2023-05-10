@@ -34,3 +34,4 @@
 # Custom ignores
 .vscode/
 build/
+vcpkg/

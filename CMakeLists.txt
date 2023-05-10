@@ -26,6 +26,7 @@ target_link_libraries(glforge PRIVATE glad::glad glfw glm::glm imgui::imgui)
 target_compile_features(glforge PRIVATE cxx_std_20)
 set_target_properties(glforge PROPERTIES CXX_EXTENSIONS OFF)
 target_include_directories(glforge PUBLIC ${STB_INCLUDE_DIRS})
+add_library(glforge::glforge ALIAS glforge)
 
 if (MSVC)
     target_compile_options(glforge PRIVATE /W4 /WX)
