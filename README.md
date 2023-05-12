@@ -38,14 +38,16 @@ This framework fetchs and builds `vcpkg` in [manifest mode](https://vcpkg.readth
 
 ### FetchContent
 
-It's possible to consume `gl-forge` in an external project by using CMake [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html). Because this framework uses `vcpkg`, it's necessary to fetch the framework **before** the first call to `project()` in the root CMakeLists.txt.
+It's possible to consume `gl-forge` in an external project by using CMake [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html).
 
 ```
+project(your-project LANGUAGES CXX)
 include(FetchContent)
 FetchContent_Declare(gl-forge
     GIT_REPOSITORY https://github.com/math-araujo/gl-forge.git
     GIT_TAG 14434df9d2ca8270cc0d785043cc7e01526788c0 # master branch
 )
 FetchContent_MakeAvailable(gl-forge)
-project(your-project LANGUAGES CXX)
 ```
+
+Using [multiple manifests](https://github.com/microsoft/vcpkg/discussions/18122) is not supported by `vcpkg`. Therefore, for a project `A` to consume `gl-forge`, it needs its own `vcpkg.json` on the root (and apparently it's own `vcpkg` copy). 
