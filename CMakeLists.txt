@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.25)
-include(cmake/fetchvcpkg.cmake)
+option(FETCH_VCPKG "Fetch vcpkg as dependency manager" FALSE)
+if (${FETCH_VCPKG})
+    message(STATUS "Populating vcpkg")
+    include(cmake/fetchvcpkg.cmake)
+else()
+    message(STATUS "Building without vcpkg")
+endif()
+
 project(glforge LANGUAGES CXX)
 
+message(STATUS "VCPKG DIR: ${vcpkg_SOURCE_DIR}")
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -19,19 +27,24 @@ set(gl_forge_files
     include/glforge/index_buffer.hpp src/index_buffer.cpp
     include/glforge/texture.hpp src/texture.cpp
     include/glforge/texture_sampler.hpp src/texture_sampler.cpp)
-add_library(glforge STATIC ${gl_forge_files})
-target_include_directories(glforge PUBLIC include)
+add_library(glforge_glforge STATIC ${gl_forge_files})
+target_include_directories(glforge_glforge PUBLIC include)
 
-target_link_libraries(glforge PRIVATE glad::glad glfw glm::glm imgui::imgui)
-target_compile_features(glforge PRIVATE cxx_std_20)
-set_target_properties(glforge PROPERTIES CXX_EXTENSIONS OFF)
-target_include_directories(glforge PUBLIC ${STB_INCLUDE_DIRS})
-add_library(glforge::glforge ALIAS glforge)
+target_link_libraries(glforge_glforge PUBLIC glad::glad glfw glm::glm imgui::imgui)
+target_compile_features(glforge_glforge PRIVATE cxx_std_20)
+set_target_properties(glforge_glforge PROPERTIES CXX_EXTENSIONS OFF)
+target_include_directories(glforge_glforge PUBLIC ${STB_INCLUDE_DIRS})
 
 if (MSVC)
-    target_compile_options(glforge PRIVATE /W4 /WX)
+    target_compile_options(glforge_glforge PRIVATE /W4 /WX)
 else()
-    target_compile_options(glforge PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(glforge_glforge PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-add_subdirectory(examples)
+# Link to ALIAS glforge::glforge
+add_library(glforge::glforge ALIAS glforge_glforge)
+
+option(BUILD_GL_FORGE_EXAMPLES "Build examples directory" FALSE)
+if (${BUILD_GL_FORGE_EXAMPLES})
+    add_subdirectory(examples)
+endif()

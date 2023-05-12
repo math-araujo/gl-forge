@@ -12,6 +12,10 @@
             "description": "Default MSVC Build configuration",
             "generator": "Visual Studio 17 2022",
             "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "FETCH_VCPKG": "TRUE",
+                "BUILD_GL_FORGE_EXAMPLES": "TRUE"
+            },
             "architecture": {
                 "value": "x64"
             }
@@ -22,7 +26,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "FETCH_VCPKG": "TRUE",
+                "BUILD_GL_FORGE_EXAMPLES": "TRUE"
             }
         },
         {
@@ -31,7 +37,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "FETCH_VCPKG": "TRUE",
+                "BUILD_GL_FORGE_EXAMPLES": "TRUE"
             }
         }
     ]
