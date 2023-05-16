@@ -41,6 +41,9 @@ protected:
 
     /*
     Override these functions to react to GLFW callbacks.
+    It's recommended to use/override the callbacks when the desired
+    behaviour is to react to every event just once, instead of querying
+    the key state like process_input member-function does.
     */
     virtual void on_window_resize(int new_width, int new_height);
     virtual void on_key_press(int key, int action);
