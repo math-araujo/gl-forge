@@ -20,6 +20,7 @@ public:
     using Application::Application; // Inherits base class constructor
     ~ExampleApp() override = default;
 
+protected:
     void render() override
     {
         glGetIntegerv(GL_VIEWPORT, _current_viewport.data());
@@ -40,7 +41,7 @@ public:
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // Same VAO, just bind a different vertex buffer (and optionally index buffer);
-        // no need to change VAO state.
+        // no need to change VAO binding.
         _program.set_mat4("mvp", view_perspective * glm::scale(glm::mat4{1.0f}, glm::vec3{1.0f, 1.0f, 1.0f}));
         _program.set_vec3("color", glm::vec3{1.0f, 0.0f, 1.0f});
         _vao.bind_vertex_buffer(_cube_vertices.id(), _cube_vertices.stride());

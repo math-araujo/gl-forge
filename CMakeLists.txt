@@ -9,7 +9,6 @@ endif()
 
 project(glforge LANGUAGES CXX)
 
-message(STATUS "VCPKG DIR: ${vcpkg_SOURCE_DIR}")
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
