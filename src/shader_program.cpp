@@ -29,7 +29,7 @@ std::string load_shader_source_code(const std::filesystem::path& source_path)
 namespace glforge
 {
 
-ShaderProgram::ShaderProgram(std::span<ShaderFile> shader_files) : _id{glCreateProgram()}
+ShaderProgram::ShaderProgram(std::span<const ShaderFile> shader_files) : _id{glCreateProgram()}
 {
     assert(_id != 0);
     std::vector<Shader> shaders;

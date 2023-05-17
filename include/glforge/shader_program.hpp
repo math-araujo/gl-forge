@@ -27,8 +27,8 @@ public:
         Shader::Type type;
     };
 
-    ShaderProgram(std::span<ShaderFile> shader_files);
-    ShaderProgram(std::span<ShaderSource> shader_sources);
+    ShaderProgram(std::span<const ShaderFile> shader_files);
+    ShaderProgram(std::span<const ShaderSource> shader_sources);
     ShaderProgram(const ShaderProgram& rhs) = delete;
     ShaderProgram(ShaderProgram&& rhs) noexcept;
     ShaderProgram& operator=(const ShaderProgram& rhs) = delete;
