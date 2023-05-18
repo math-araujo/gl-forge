@@ -46,12 +46,4 @@ void Texture::bind(GLuint sampler, GLuint unit)
     glBindTextureUnit(unit, _id);
 }
 
-void Texture::update(const ImageData& image)
-{
-    assert(image.width <= _width);
-    assert(image.height <= _height);
-    glTextureSubImage2D(_id, image.level, 0, 0, image.width, image.height, image.format, image.type,
-                        image.pixels.data());
-}
-
 } // namespace glforge

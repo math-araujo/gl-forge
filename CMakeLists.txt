@@ -24,7 +24,7 @@ set(gl_forge_files
     include/glforge/vertex_array.hpp src/vertex_array.cpp
     include/glforge/vertex_buffer.hpp src/vertex_buffer.cpp
     include/glforge/index_buffer.hpp src/index_buffer.cpp
-    include/glforge/texture.hpp src/texture.cpp
+    include/glforge/texture.hpp include/glforge/texture.inl src/texture.cpp
     include/glforge/texture_sampler.hpp src/texture_sampler.cpp)
 add_library(glforge_glforge STATIC ${gl_forge_files})
 target_include_directories(glforge_glforge PUBLIC include)
