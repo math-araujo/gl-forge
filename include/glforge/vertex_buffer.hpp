@@ -20,6 +20,12 @@ public:
     [[nodiscard]] GLuint id() const noexcept;
     [[nodiscard]] GLuint stride() const noexcept;
 
+    /*
+    Update the vertex buffer contents. This member function does not
+    allocate more memory.
+    */
+    void update(std::span<const float> buffer_data);
+
 private:
     GLuint _id{0};
     GLuint _stride{0};

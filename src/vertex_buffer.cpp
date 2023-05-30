@@ -41,4 +41,9 @@ GLuint VertexBuffer::stride() const noexcept
     return _stride;
 }
 
+void VertexBuffer::update(std::span<const float> buffer_data)
+{
+    glNamedBufferSubData(_id, 0, buffer_data.size_bytes(), buffer_data.data());
+}
+
 } // namespace glforge
